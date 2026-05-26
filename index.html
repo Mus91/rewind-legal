@@ -337,7 +337,7 @@
       <li>A short key used internally to deduplicate rapid updates to the same notification</li>
     </ul>
     <p>Title and body text capture is on by default. You can turn it off globally in <strong>Settings &rsaquo; Capture title and body text</strong>, or flip it for individual apps under <strong>Settings &rsaquo; Text capture exceptions</strong>. When text capture is off, only the metadata above is stored.</p>
-    <p>Rewind does <strong>not</strong> read your contacts, call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases.</p>
+    <p>Rewind does <strong>not</strong> read your call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases. <strong>Contacts</strong> are an opt-in exception: Rewind asks for the <code>READ_CONTACTS</code> permission only when you tap "Pick from starred contacts" inside the rule editor. See <a href="#permissions">Permissions</a> below for details. Picked names are turned into a local regex and never leave your device.</p>
 
     <h2 id="storage">Where your data lives</h2>
     <p>All captured data is stored in a Room/SQLite database inside Rewind's private app storage on your device. Android sandboxes that directory: other apps cannot read it. The database is excluded from Google's auto-backup, is never synced to the cloud, and never leaves the device unless <em>you</em> explicitly export it through the system file picker (see <a href="#exports">Exports</a>).</p>
@@ -372,9 +372,13 @@
           <td>FOREGROUND_SERVICE,<br>FOREGROUND_SERVICE_<br>SPECIAL_USE</td>
           <td>Allows the optional capture indicator notification so you always know when Rewind is recording.</td>
         </tr>
+        <tr>
+          <td>READ_CONTACTS <span class="chip">opt-in</span></td>
+          <td>Requested only when you tap "Pick from starred contacts" inside the rule editor (for the family-contacts rule template). Rewind reads display names of contacts you have <em>starred</em> on your device to build a local regex condition. The names are not stored or transmitted beyond that regex. If you never use this feature the permission is never requested, and you can revoke it any time in Android Settings.</td>
+        </tr>
       </tbody>
     </table>
-    <p style="margin-top:14px;">Rewind does not request internet, location, contacts, SMS, microphone, camera, photos, files, calendar, biometric, or sensor permissions.</p>
+    <p style="margin-top:14px;">Rewind does not request internet, location, SMS, microphone, camera, photos, files, calendar, biometric, or sensor permissions.</p>
 
     <h2 id="purchases">Purchases</h2>
     <p>Rewind is free to download. <strong>Rewind Pro</strong> is a single one-time in-app purchase that unlocks features such as extended retention, daily and weekly digest, morning recap, deeper analytics, snooze, per-app retention, and JSON / PDF exports. Purchases are handled by Google Play. Please refer to <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a> for details on how Google processes the transaction.</p>
