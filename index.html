@@ -361,8 +361,8 @@
           <td>Used only to deliver the optional daily digest, morning recap, and snooze redelivery notifications you configure. Required on Android 13 and above.</td>
         </tr>
         <tr>
-          <td>SCHEDULE_EXACT_ALARM,<br>USE_EXACT_ALARM</td>
-          <td>Lets Rewind fire scheduled features (digest, recap, snooze) at the exact minute you chose, instead of being subject to batched delivery windows. USE_EXACT_ALARM is auto-granted on Android 13+; SCHEDULE_EXACT_ALARM is the API 31/32 fallback you may need to grant in system settings.</td>
+          <td>SCHEDULE_EXACT_ALARM</td>
+          <td>Lets Rewind fire scheduled features (digest, recap, snooze) at the exact minute you chose, when you have granted the permission in system settings. If not granted, those features fall back to inexact scheduling and may fire up to 15 minutes late, which is acceptable for a morning summary.</td>
         </tr>
         <tr>
           <td>RECEIVE_BOOT_COMPLETED</td>
