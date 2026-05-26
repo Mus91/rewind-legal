@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rewind . Privacy Policy</title>
+  <meta name="description" content="Privacy policy for Rewind, the on-device notification history manager. Nothing leaves your device.">
+  <meta name="theme-color" content="#5B3FE0">
+  <meta property="og:title" content="Rewind . Privacy Policy">
+  <meta property="og:description" content="Notification content is captured and stored only on your device. Nothing is sent to any server.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mus91.github.io/rewind-legal/">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;defs&gt;&lt;linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'&gt;&lt;stop offset='0%25' stop-color='%235B3FE0'/&gt;&lt;stop offset='100%25' stop-color='%232BCAE8'/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;&lt;rect width='64' height='64' rx='14' fill='url(%23g)'/&gt;&lt;path d='M32 12c-7 0-12 5-12 12v8l-3 4v2h30v-2l-3-4v-8c0-7-5-12-12-12zm0 38c2 0 4-2 4-4h-8c0 2 2 4 4 4z' fill='white'/&gt;&lt;/svg&gt;">
+
+  <style>
+    :root {
+      --violet: #5B3FE0;
+      --indigo: #4F46E5;
+      --cyan: #2BCAE8;
+      --gradient: linear-gradient(135deg, #5B3FE0 0%, #4F46E5 45%, #2BCAE8 100%);
+      --gradient-soft: linear-gradient(135deg, rgba(91,63,224,0.08) 0%, rgba(43,202,232,0.08) 100%);
+      --bg: #F6F7FC;
+      --surface: #FFFFFF;
+      --surface-elevated: #FFFFFF;
+      --ink: #1A1D2B;
+      --ink-muted: #5A607A;
+      --ink-soft: #8389A1;
+      --border: #E7E8F0;
+      --border-strong: #D7D9E5;
+      --chip-bg: #EFEEFB;
+      --chip-ink: #4A2FCC;
+      --code-bg: #F1F2F9;
+      --link: #4F2FD6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0E1018;
+        --surface: #161A26;
+        --surface-elevated: #1B2030;
+        --ink: #E8EAF3;
+        --ink-muted: #A9AFC4;
+        --ink-soft: #7A8098;
+        --border: #262B3A;
+        --border-strong: #323849;
+        --chip-bg: #221C4A;
+        --chip-ink: #C8BEFF;
+        --code-bg: #1F2433;
+        --link: #A99CFF;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+                   Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .15s ease; }
+    a:hover { border-bottom-color: currentColor; }
+
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.92em;
+      background: var(--code-bg);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--gradient);
+      color: white;
+      padding: 56px 24px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .logo {
+      flex: 0 0 auto;
+      width: 88px;
+      height: 88px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: grid;
+      place-items: center;
+      box-shadow:
+        0 12px 32px rgba(20, 10, 60, 0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.25);
+    }
+    .logo svg { width: 52px; height: 52px; display: block; }
+    .hero-text { min-width: 0; }
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin: 0 0 8px;
+      opacity: 0.85;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 2.6rem);
+      line-height: 1.15;
+      margin: 0 0 10px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .hero .subtitle {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      opacity: 0.95;
+      max-width: 52ch;
+    }
+    .hero .meta {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    /* Container */
+    .container {
+      max-width: 760px;
+      margin: -36px auto 64px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 8px 32px rgba(20, 10, 60, 0.06);
+    }
+
+    .tldr {
+      background: var(--gradient-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--violet);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 28px 0 36px;
+    }
+    .tldr h2 {
+      margin: 0 0 6px;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--chip-ink);
+    }
+    .tldr p { margin: 0; font-size: 1.02rem; }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 40px 0 12px;
+      padding-top: 8px;
+      scroll-margin-top: 20px;
+    }
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--gradient);
+      border-radius: 3px;
+      margin-right: 12px;
+      vertical-align: -4px;
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+
+    p, li { color: var(--ink); }
+    .muted { color: var(--ink-muted); }
+
+    ul { padding-left: 22px; }
+    li { margin: 6px 0; }
+    li::marker { color: var(--violet); }
+
+    .perm-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 12px 0 0;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .perm-table th, .perm-table td {
+      text-align: left;
+      padding: 12px 14px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    .perm-table tr:last-child td { border-bottom: none; }
+    .perm-table th {
+      background: var(--chip-bg);
+      color: var(--chip-ink);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .perm-table td:first-child {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      color: var(--chip-ink);
+      width: 38%;
+    }
+
+    .chip {
+      display: inline-block;
+      background: var(--chip-bg);
+      color: var(--chip-ink);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .contact {
+      margin-top: 36px;
+      padding: 22px 26px;
+      background: var(--gradient-soft);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .contact a { font-weight: 600; }
+
+    footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 24px 56px;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+    footer a { color: var(--ink-muted); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 20px 60px; }
+      .hero-inner { gap: 18px; }
+      .logo { width: 64px; height: 64px; border-radius: 16px; }
+      .logo svg { width: 38px; height: 38px; }
+      .container { padding: 0 16px; margin-top: -28px; }
+      .card { padding: 22px 20px; border-radius: 14px; }
+      .perm-table td:first-child { width: 42%; font-size: 0.8rem; }
+      .perm-table th, .perm-table td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bell silhouette -->
+        <path d="M32 6c-1.4 0-2.5 1.1-2.5 2.5v1.6c-6.4 1.3-11 7-11 13.7v9.4l-3.2 4.3a2 2 0 0 0 1.6 3.2h30.2a2 2 0 0 0 1.6-3.2L45.5 33.2v-9.4c0-6.7-4.6-12.4-11-13.7V8.5C34.5 7.1 33.4 6 32 6z" fill="white"/>
+        <!-- Clapper -->
+        <path d="M28 46h8a4 4 0 0 1-8 0z" fill="white"/>
+        <!-- Inner rewind/clock loop -->
+        <circle cx="32" cy="26" r="7.5" fill="none" stroke="#5B3FE0" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="34 8" transform="rotate(-30 32 26)"/>
+        <path d="M24.5 23.5l-2.2-1.2 1.2-2.2" fill="none" stroke="#5B3FE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Clock hands -->
+        <path d="M32 22.5v4l2.4 1.4" fill="none" stroke="#5B3FE0" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="hero-text">
+      <p class="eyebrow">Rewind</p>
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">Notification content is captured and stored only on your device. Nothing is sent to any server. No advertising IDs. No analytics. No tracking.</p>
+      <p class="meta">Effective 26 May 2026</p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <article class="card">
+
+    <section class="tldr">
+      <h2>In one paragraph</h2>
+      <p>Rewind is a notification history manager that runs entirely on your device. The app does not collect, transmit, or share any of your data with the developer or any third party. There are no advertising IDs, no analytics SDKs, no crash reporters, no telemetry, and no cloud sync. The only outbound network call Rewind makes is to Google Play Billing, and only when you choose to purchase the one-time Pro unlock.</p>
+    </section>
+
+    <h2 id="what">What Rewind does</h2>
+    <p>Rewind reads notifications that the Android system delivers to its <code>NotificationListenerService</code> and stores them in a local database on your device. That local store is what powers the History screen, search, rules, snooze, the daily digest, the morning recap, analytics, and the home-screen widget. Every screen you see is computed on-device from data that never leaves your phone.</p>
+
+    <h2 id="data">Data Rewind processes</h2>
+    <p>When the system hands a notification to the listener, Rewind reads and stores the following fields:</p>
+    <ul>
+      <li>The posting app's package name and display label</li>
+      <li>The notification title and body text <span class="chip">opt-out</span></li>
+      <li>The notification category and channel ID</li>
+      <li>The posted timestamp</li>
+      <li>Whether the notification was marked as ongoing</li>
+      <li>A short key used internally to deduplicate rapid updates to the same notification</li>
+    </ul>
+    <p>Title and body text capture is on by default. You can turn it off globally in <strong>Settings &rsaquo; Capture title and body text</strong>, or flip it for individual apps under <strong>Settings &rsaquo; Text capture exceptions</strong>. When text capture is off, only the metadata above is stored.</p>
+    <p>Rewind does <strong>not</strong> read your contacts, call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases.</p>
+
+    <h2 id="storage">Where your data lives</h2>
+    <p>All captured data is stored in a Room/SQLite database inside Rewind's private app storage on your device. Android sandboxes that directory: other apps cannot read it. The database is excluded from Google's auto-backup, is never synced to the cloud, and never leaves the device unless <em>you</em> explicitly export it through the system file picker (see <a href="#exports">Exports</a>).</p>
+
+    <h2 id="sharing">Who Rewind shares data with</h2>
+    <p><strong>Nobody.</strong> Rewind has no servers, no analytics back-end, no advertising partners, and no third-party SDK that transmits user data. No part of your notification history leaves your device through Rewind under any circumstance.</p>
+    <p>The single network interaction Rewind initiates is with <strong>Google Play Billing</strong>, and only when you tap Unlock Pro. Google receives that purchase transaction directly under Google's own terms. Rewind does not transmit any of your notification data to Google, and Google does not send Rewind any personal information beyond the entitlement status of the <code>rewind_pro_unlock</code> product on your Google account.</p>
+
+    <h2 id="permissions">Permissions Rewind requests, and why</h2>
+    <table class="perm-table">
+      <thead>
+        <tr><th>Permission</th><th>Reason</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BIND_NOTIFICATION_<br>LISTENER_SERVICE</td>
+          <td>The core capability. Lets Rewind read notifications as the system posts them so they can be saved to local history. Without this, Rewind cannot function.</td>
+        </tr>
+        <tr>
+          <td>POST_NOTIFICATIONS</td>
+          <td>Used only to deliver the optional daily digest, morning recap, and snooze redelivery notifications you configure. Required on Android 13 and above.</td>
+        </tr>
+        <tr>
+          <td>SCHEDULE_EXACT_ALARM</td>
+          <td>Lets Rewind fire scheduled features (digest, recap, snooze) at the exact minute you chose, instead of being subject to batched delivery windows.</td>
+        </tr>
+        <tr>
+          <td>com.android.vending.BILLING</td>
+          <td>Lets the app communicate with Google Play Billing to process the one-time Pro purchase.</td>
+        </tr>
+        <tr>
+          <td>FOREGROUND_SERVICE,<br>FOREGROUND_SERVICE_<br>SPECIAL_USE</td>
+          <td>Allows the optional capture indicator notification so you always know when Rewind is recording.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px;">Rewind does not request internet, location, contacts, SMS, microphone, camera, photos, files, calendar, biometric, or sensor permissions.</p>
+
+    <h2 id="purchases">Purchases</h2>
+    <p>Rewind is free to download. <strong>Rewind Pro</strong> is a single one-time in-app purchase that unlocks features such as extended retention, daily and weekly digest, morning recap, deeper analytics, snooze, per-app retention, and JSON / PDF exports. Purchases are handled by Google Play. Please refer to <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a> for details on how Google processes the transaction.</p>
+
+    <h2 id="exports">Exports</h2>
+    <p>You can export your notification history to CSV, JSON, or PDF (JSON and PDF require Pro) through Android's Storage Access Framework. You pick the destination file and folder; Rewind writes the file there and does not retain a separate copy of the export. We do not have access to anything you do with the exported file afterward.</p>
+
+    <h2 id="retention">Data retention and deletion</h2>
+    <p>Your retention window is controlled entirely by you:</p>
+    <ul>
+      <li>Free users keep up to 7 days of history.</li>
+      <li>Pro users can choose any retention between 1 and 365 days, or "unlimited", and can set per-app overrides.</li>
+      <li>You can delete individual entries from the History screen at any time, or clear an app's history from the analytics drill-in.</li>
+      <li>Uninstalling Rewind erases the entire local database. There is nothing to delete server-side, because there is no server.</li>
+    </ul>
+
+    <h2 id="children">Children</h2>
+    <p>Rewind is not directed at children under 13 and does not knowingly collect data from them. Because the app collects no data at all, no special protections under COPPA or comparable regulations are triggered. We still recommend that minors use the app only with parental supervision, since the device's notifications themselves may contain sensitive content.</p>
+
+    <h2 id="security">Security</h2>
+    <p>Your data lives in Android's per-app private storage, which is sandboxed from other apps. Rewind relies on the operating system's existing protections: the device lock screen and file-based encryption. We do not implement an additional at-rest encryption layer for the local database in v1, because the threat model of a single-user device is already covered by those OS-level controls. If you share a device with someone else, treat Rewind history the same as anything else in your apps.</p>
+
+    <h2 id="choices">Your controls</h2>
+    <ul>
+      <li><strong>Pause capture</strong>: Settings &rsaquo; Capture notifications.</li>
+      <li><strong>Stop capturing for specific apps</strong>: Settings &rsaquo; Don't capture from these apps.</li>
+      <li><strong>Stop capturing title and body text</strong>: Settings &rsaquo; Capture title and body text (or per-app under Text capture exceptions).</li>
+      <li><strong>Adjust retention or set per-app overrides</strong>: Settings &rsaquo; Retention.</li>
+      <li><strong>Clear all history</strong>: revoke notification access in Android Settings, then uninstall the app.</li>
+      <li><strong>Revoke notification access</strong>: Android Settings &rsaquo; Notifications &rsaquo; Special app access &rsaquo; Notification access.</li>
+    </ul>
+
+    <h2 id="changes">Changes to this policy</h2>
+    <p>If the way Rewind handles data ever changes materially, this page will be updated and the effective date at the top bumped. Because the app's privacy promise is structural (no servers, no SDKs), a substantive change would require a new app version, and we would surface a clear in-app notice before any change took effect.</p>
+
+    <h2 id="contact">Contact</h2>
+    <div class="contact">
+      <p style="margin:0 0 6px;">Questions or concerns about privacy:</p>
+      <p style="margin:0 0 10px;"><a href="mailto:rewind@albarghouthy.dev">rewind@albarghouthy.dev</a></p>
+      <p class="muted" style="margin:0; font-size: 0.9rem;">
+        Developer: Mus Albarghouthy &middot; Application ID: <code>dev.albarghouthy.rewind</code> &middot; Distributed via Google Play.
+      </p>
+    </div>
+
+  </article>
+</main>
+
+<footer>
+  <p>Source for this policy lives at <a href="https://github.com/Mus91/rewind-legal">github.com/Mus91/rewind-legal</a>.</p>
+</footer>
+
+</body>
+</html>
