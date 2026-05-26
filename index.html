@@ -361,16 +361,16 @@
           <td>Used only to deliver the optional daily digest, morning recap, and snooze redelivery notifications you configure. Required on Android 13 and above.</td>
         </tr>
         <tr>
-          <td>SCHEDULE_EXACT_ALARM</td>
-          <td>Lets Rewind fire scheduled features (digest, recap, snooze) at the exact minute you chose, instead of being subject to batched delivery windows.</td>
+          <td>SCHEDULE_EXACT_ALARM,<br>USE_EXACT_ALARM</td>
+          <td>Lets Rewind fire scheduled features (digest, recap, snooze) at the exact minute you chose, instead of being subject to batched delivery windows. USE_EXACT_ALARM is auto-granted on Android 13+; SCHEDULE_EXACT_ALARM is the API 31/32 fallback you may need to grant in system settings.</td>
+        </tr>
+        <tr>
+          <td>RECEIVE_BOOT_COMPLETED</td>
+          <td>Used only to re-arm the daily digest and morning recap alarms after a device reboot. AlarmManager clears pending alarms on reboot, so without this the schedules would silently stop firing until you next opened the app.</td>
         </tr>
         <tr>
           <td>com.android.vending.BILLING</td>
           <td>Lets the app communicate with Google Play Billing to process the one-time Pro purchase.</td>
-        </tr>
-        <tr>
-          <td>FOREGROUND_SERVICE,<br>FOREGROUND_SERVICE_<br>SPECIAL_USE</td>
-          <td>Allows the optional capture indicator notification so you always know when Rewind is recording.</td>
         </tr>
         <tr>
           <td>READ_CONTACTS <span class="chip">opt-in</span></td>
