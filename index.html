@@ -310,7 +310,7 @@
       <p class="eyebrow">Rewind</p>
       <h1>Privacy Policy</h1>
       <p class="subtitle">Notification content is captured and stored only on your device. Nothing is sent to any server. No advertising IDs. No analytics. No tracking.</p>
-      <p class="meta">Effective 26 May 2026</p>
+      <p class="meta">Effective 1 June 2026</p>
     </div>
   </div>
 </header>
@@ -324,7 +324,7 @@
     </section>
 
     <h2 id="what">What Rewind does</h2>
-    <p>Rewind reads notifications that the Android system delivers to its <code>NotificationListenerService</code> and stores them in a local database on your device. That local store is what powers the History screen, search, rules, snooze, the daily digest, the morning recap, analytics, and the home-screen widget. Every screen you see is computed on-device from data that never leaves your phone.</p>
+    <p>Rewind reads notifications that the Android system delivers to its <code>NotificationListenerService</code> and stores them in a local database on your device. That local store is what powers the History screen, search, rules, snooze, the daily digest, the morning recap, analytics, the home-screen widget, the Quick Settings tile for the latest verification code, and the optional encrypted backup and restore flow. Every screen you see is computed on-device from data that never leaves your phone.</p>
 
     <h2 id="data">Data Rewind processes</h2>
     <p>When the system hands a notification to the listener, Rewind reads and stores the following fields:</p>
@@ -381,10 +381,19 @@
     <p style="margin-top:14px;">Rewind does not request internet, location, SMS, microphone, camera, photos, files, calendar, biometric, or sensor permissions.</p>
 
     <h2 id="purchases">Purchases</h2>
-    <p>Rewind is free to download. <strong>Rewind Pro</strong> is a single one-time in-app purchase that unlocks features such as extended retention, daily and weekly digest, morning recap, deeper analytics, snooze, per-app retention, and JSON / PDF exports. Purchases are handled by Google Play. Please refer to <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a> for details on how Google processes the transaction.</p>
+    <p>Rewind is free to download. <strong>Rewind Pro</strong> is a single one-time in-app purchase that unlocks features such as extended retention, daily and weekly digest, morning recap, deeper analytics, snooze, per-app retention, encrypted backup and restore, the Quick Settings tile for verification codes, and JSON / PDF exports. Purchases are handled by Google Play. Please refer to <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a> for details on how Google processes the transaction.</p>
 
     <h2 id="exports">Exports</h2>
     <p>You can export your notification history to CSV, JSON, or PDF (JSON and PDF require Pro) through Android's Storage Access Framework. You pick the destination file and folder; Rewind writes the file there and does not retain a separate copy of the export. We do not have access to anything you do with the exported file afterward.</p>
+
+    <h2 id="backups">Encrypted backups <span class="chip">opt-in</span></h2>
+    <p>Pro users can create an encrypted backup of every captured notification, rule, and per-app retention override. The backup is written as a single file through Android's Storage Access Framework; you pick where it goes. Rewind does not upload the file anywhere, and there is no online backup service.</p>
+    <p>The file is encrypted with <strong>AES-256-GCM</strong> using a key derived from your password via <strong>PBKDF2-HMAC-SHA256</strong> at 600,000 iterations. The password is never written to disk and never leaves the app. We cannot recover a forgotten password: if you lose it, the backup is unreadable, including by us.</p>
+    <p>Where the file lives after you save it is entirely up to you. If you pick a folder that is synced by another app (for example Google Drive or Dropbox), the encrypted file will be uploaded by that app under its own privacy terms. Rewind itself never initiates that upload.</p>
+
+    <h2 id="otp">OTP detection and the Quick Settings tile <span class="chip">opt-in</span></h2>
+    <p>For Pro users, Rewind can detect verification codes (one-time passwords) inside notifications and surface the most recent code on a Quick Settings tile so it can be copied with a single tap. Detection runs entirely on-device: a regex looks for 4 to 8 digit codes in the notification text Rewind has already stored. No code or notification is sent anywhere.</p>
+    <p>When you tap the Quick Settings tile, the latest detected code is written to the Android system clipboard. On some Android versions the clipboard is readable by any foreground app, so treat this the same as you would copying a code from a messaging app: only do it when you are about to paste it. The tile is added by you from the Quick Settings editor and can be removed there at any time.</p>
 
     <h2 id="retention">Data retention and deletion</h2>
     <p>Your retention window is controlled entirely by you:</p>
@@ -392,14 +401,15 @@
       <li>Free users keep up to 7 days of history.</li>
       <li>Pro users can choose any retention between 1 and 365 days, or "unlimited", and can set per-app overrides.</li>
       <li>You can delete individual entries from the History screen at any time, or clear an app's history from the analytics drill-in.</li>
-      <li>Uninstalling Rewind erases the entire local database. There is nothing to delete server-side, because there is no server.</li>
+      <li>Uninstalling Rewind erases the entire local database. There is nothing to delete server-side, because there is no server. Any backup files you exported still exist wherever you saved them, so delete those separately if you want them gone.</li>
     </ul>
 
     <h2 id="children">Children</h2>
     <p>Rewind is not directed at children under 13 and does not knowingly collect data from them. Because the app collects no data at all, no special protections under COPPA or comparable regulations are triggered. We still recommend that minors use the app only with parental supervision, since the device's notifications themselves may contain sensitive content.</p>
 
     <h2 id="security">Security</h2>
-    <p>Your data lives in Android's per-app private storage, which is sandboxed from other apps. Rewind relies on the operating system's existing protections: the device lock screen and file-based encryption. We do not implement an additional at-rest encryption layer for the local database in v1, because the threat model of a single-user device is already covered by those OS-level controls. If you share a device with someone else, treat Rewind history the same as anything else in your apps.</p>
+    <p>Your data lives in Android's per-app private storage, which is sandboxed from other apps. Rewind relies on the operating system's existing protections: the device lock screen and file-based encryption. We do not implement an additional at-rest encryption layer for the live local database, because the threat model of a single-user device is already covered by those OS-level controls. If you share a device with someone else, treat Rewind history the same as anything else in your apps.</p>
+    <p>Backup files written through the Encrypted backups feature are a separate matter, because they may end up in less-private locations (a Downloads folder, a synced cloud directory). Those files are encrypted with AES-256-GCM keyed by a password you choose, derived with PBKDF2 at 600,000 iterations. See <a href="#backups">Encrypted backups</a> above.</p>
 
     <h2 id="choices">Your controls</h2>
     <ul>
