@@ -302,7 +302,7 @@
       <p class="eyebrow">Rewind</p>
       <h1>Privacy Policy</h1>
       <p class="subtitle">Notification content is captured and stored only on your device. Nothing is sent to any server. No advertising IDs. No analytics. No tracking.</p>
-      <p class="meta">Effective 1 June 2026</p>
+      <p class="meta">Effective 11 June 2026</p>
     </div>
   </div>
 </header>
@@ -322,17 +322,20 @@
     <p>When the system hands a notification to the listener, Rewind reads and stores the following fields:</p>
     <ul>
       <li>The posting app's package name and display label</li>
-      <li>The notification title and body text <span class="chip">opt-out</span></li>
+      <li>The notification title and body text, including the supplementary summary and info fields when present <span class="chip">opt-out</span></li>
+      <li>Multi-message threads from messaging-style notifications (WhatsApp, Messenger, Telegram, Gmail digest, etc.), captured as structured JSON inside the local database <span class="chip">opt-out</span></li>
+      <li>Notification-attached images: sender avatars, the photos attached to picture-style notifications, and per-message image attachments from messaging apps. These are written as JPEG files in Rewind's private app storage with a rolling 50 MB size cap <span class="chip">opt-out</span></li>
       <li>The notification category and channel ID</li>
       <li>The posted timestamp</li>
       <li>Whether the notification was marked as ongoing</li>
       <li>A short key used internally to deduplicate rapid updates to the same notification</li>
     </ul>
-    <p>Title and body text capture is on by default. You can turn it off globally in <strong>Settings &rsaquo; Capture title and body text</strong>, or flip it for individual apps under <strong>Settings &rsaquo; Text capture exceptions</strong>. When text capture is off, only the metadata above is stored.</p>
+    <p>Text, message-thread, and image capture are all on by default. You can turn them off globally in <strong>Settings &rsaquo; Capture title and body text</strong>, <strong>Settings &rsaquo; Capture full message threads</strong>, and <strong>Settings &rsaquo; Capture images</strong> respectively, or flip text capture for individual apps under <strong>Settings &rsaquo; Text capture exceptions</strong>. When a category is off, none of those bytes reach disk.</p>
     <p>Rewind does <strong>not</strong> read your call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases. <strong>Contacts</strong> are an opt-in exception: Rewind asks for the <code>READ_CONTACTS</code> permission only when you tap "Pick from starred contacts" inside the rule editor. See <a href="#permissions">Permissions</a> below for details. Picked names are turned into a local regex and never leave your device.</p>
 
     <h2 id="storage">Where your data lives</h2>
     <p>All captured data is stored in a Room/SQLite database inside Rewind's private app storage on your device. Android sandboxes that directory: other apps cannot read it. The database is excluded from Google's auto-backup, is never synced to the cloud, and never leaves the device unless <em>you</em> explicitly export it through the system file picker (see <a href="#exports">Exports</a>).</p>
+    <p>Notification-attached images are written as separate JPEG files alongside the database, inside the same private storage. They are subject to a rolling 50 MB cap: when the cap is reached, the oldest images are pruned automatically. The image bytes themselves are not bundled inside encrypted backups (only the filename references travel along), so a cross-device restore falls back to the source app's icon for any image the new device doesn't already have on disk.</p>
 
     <h2 id="sharing">Who Rewind shares data with</h2>
     <p><strong>Nobody.</strong> Rewind has no servers, no analytics back-end, no advertising partners, and no third-party SDK that transmits user data. No part of your notification history leaves your device through Rewind under any circumstance.</p>
@@ -377,15 +380,27 @@
 
     <h2 id="exports">Exports</h2>
     <p>You can export your notification history to CSV, JSON, or PDF (JSON and PDF require Pro) through Android's Storage Access Framework. You pick the destination file and folder; Rewind writes the file there and does not retain a separate copy of the export. We do not have access to anything you do with the exported file afterward.</p>
+    <p>Pro users can also save a single captured notification image to the device gallery by long-pressing it inside an expanded History row. The image is copied into the public <code>Pictures/Rewind/</code> collection via Android's MediaStore. Once it lands there it is a normal photo: Rewind has no further control over it, and any photo-sync app you have installed (Google Photos, Samsung Gallery sync, etc.) may upload it under its own privacy terms.</p>
 
     <h2 id="backups">Encrypted backups <span class="chip">opt-in</span></h2>
     <p>Pro users can create an encrypted backup of every captured notification, rule, and per-app retention override. The backup is written as a single file through Android's Storage Access Framework; you pick where it goes. Rewind does not upload the file anywhere, and there is no online backup service.</p>
     <p>The file is encrypted with <strong>AES-256-GCM</strong> using a key derived from your password via <strong>PBKDF2-HMAC-SHA256</strong> at 600,000 iterations. The password is never written to disk and never leaves the app. We cannot recover a forgotten password: if you lose it, the backup is unreadable, including by us.</p>
     <p>Where the file lives after you save it is entirely up to you. If you pick a folder that is synced by another app (for example Google Drive or Dropbox), the encrypted file will be uploaded by that app under its own privacy terms. Rewind itself never initiates that upload.</p>
 
+    <h2 id="feedback">In-app feedback <span class="chip">opt-in</span></h2>
+    <p>Rewind ships an in-app feedback form at <strong>Settings &rsaquo; Send feedback</strong>. It is a thin wrapper around your existing email client: when you tap Send, Rewind composes a subject line and a message body and hands them to whichever app handles the Android <code>mailto:</code> intent (Gmail, Outlook, Samsung Email, etc.). The app itself never transmits the email; your email client does, on your tap, in whichever account you have configured.</p>
+    <p>The body of that email contains, by default:</p>
+    <ul>
+      <li>The feedback type you picked (Bug, Feature request, General idea, Other)</li>
+      <li>The free-text details you typed</li>
+      <li>A four-line device block: app version, device model and manufacturer, Android release, and your system language tag</li>
+    </ul>
+    <p>The device block exists to help reproduce reported bugs. It contains no advertising ID, no IMEI, no account information, no notification content, and no location. You can leave it out entirely by toggling off <strong>Include device details</strong> in the form before sending. Nothing from your notification history is ever included.</p>
+
     <h2 id="otp">OTP detection and the Quick Settings tile <span class="chip">opt-in</span></h2>
     <p>For Pro users, Rewind can detect verification codes (one-time passwords) inside notifications and surface the most recent code on a Quick Settings tile so it can be copied with a single tap. Detection runs entirely on-device: a regex looks for 4 to 8 digit codes in the notification text Rewind has already stored. No code or notification is sent anywhere.</p>
     <p>When you tap the Quick Settings tile, the latest detected code is written to the Android system clipboard. On some Android versions the clipboard is readable by any foreground app, so treat this the same as you would copying a code from a messaging app: only do it when you are about to paste it. The tile is added by you from the Quick Settings editor and can be removed there at any time.</p>
+    <p>After the freshness window expires (ten minutes), the separately-stored extracted code is automatically nulled out in the local database, even when the corresponding notification row is still in your history. The original notification text remains: the user-visible message is what powers the History list, and removing it would break unrelated features.</p>
 
     <h2 id="retention">Data retention and deletion</h2>
     <p>Your retention window is controlled entirely by you:</p>
@@ -408,7 +423,10 @@
       <li><strong>Pause capture</strong>: Settings &rsaquo; Capture notifications.</li>
       <li><strong>Stop capturing for specific apps</strong>: Settings &rsaquo; Don't capture from these apps.</li>
       <li><strong>Stop capturing title and body text</strong>: Settings &rsaquo; Capture title and body text (or per-app under Text capture exceptions).</li>
+      <li><strong>Stop capturing message threads</strong>: Settings &rsaquo; Capture full message threads.</li>
+      <li><strong>Stop capturing notification-attached images</strong>: Settings &rsaquo; Capture images.</li>
       <li><strong>Adjust retention or set per-app overrides</strong>: Settings &rsaquo; Retention.</li>
+      <li><strong>Leave device info out of feedback emails</strong>: toggle off Include device details inside the in-app feedback form.</li>
       <li><strong>Clear all history</strong>: revoke notification access in Android Settings, then uninstall the app.</li>
       <li><strong>Revoke notification access</strong>: Android Settings &rsaquo; Notifications &rsaquo; Special app access &rsaquo; Notification access.</li>
     </ul>
@@ -419,7 +437,7 @@
     <h2 id="contact">Contact</h2>
     <div class="contact">
       <p style="margin:0 0 6px;">Questions or concerns about privacy:</p>
-      <p style="margin:0 0 10px;"><a href="mailto:mqassim91@gmail.com">mqassim91@gmail.com</a></p>
+      <p style="margin:0 0 10px;"><a href="mailto:albarghouthy91@gmail.com">albarghouthy91@gmail.com</a></p>
       <p class="muted" style="margin:0; font-size: 0.9rem;">
         Developer: Mus Albarghouthy &middot; Application ID: <code>dev.albarghouthy.rewind</code> &middot; Distributed via Google Play.
       </p>
