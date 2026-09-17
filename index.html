@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rewind . Privacy Policy</title>
-  <meta name="description" content="Privacy policy for Rewind, the on-device notification history manager. Nothing leaves your device.">
+  <meta name="description" content="Privacy policy for Rewind, the on-device notification history manager. Your notification history stays on your device, or in your own Google account if you turn on Android's backup, and we never receive it.">
   <meta name="theme-color" content="#5B3FE0">
   <meta property="og:title" content="Rewind . Privacy Policy">
-  <meta property="og:description" content="Notification content is captured and stored only on your device. Nothing is sent to any server.">
+  <meta property="og:description" content="Notification content is captured and stored on your device. Nothing is ever sent to us.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mus91.github.io/rewind-legal/">
 
@@ -301,8 +301,8 @@
     <div class="hero-text">
       <p class="eyebrow">Rewind</p>
       <h1>Privacy Policy</h1>
-      <p class="subtitle">Notification content is captured and stored only on your device. Nothing is sent to any server. No advertising IDs. No analytics. No tracking.</p>
-      <p class="meta">Effective 11 June 2026</p>
+      <p class="subtitle">Notification content is captured and stored on your device. Rewind has no servers, and nothing is ever sent to us. No advertising IDs. No analytics. No tracking.</p>
+      <p class="meta">Effective 17 September 2026</p>
     </div>
   </div>
 </header>
@@ -312,11 +312,11 @@
 
     <section class="tldr">
       <h2>In one paragraph</h2>
-      <p>Rewind is a notification history manager that runs entirely on your device. The app does not collect, transmit, or share any of your data with the developer or any third party. There are no advertising IDs, no analytics SDKs, no crash reporters, no telemetry, and no cloud sync. The only outbound network call Rewind makes is to Google Play Billing, and only when you choose to purchase the one-time Pro unlock.</p>
+      <p>Rewind is a notification history manager that runs entirely on your device. The app does not collect, transmit, or share any of your data with the developer or any third party. There are no advertising IDs, no analytics SDKs, no crash reporters, no telemetry, and no cloud sync. The only outbound network call Rewind makes is to Google Play Billing, and only when you choose to purchase the one-time Pro unlock. Separately, if you switch on Google backup, Android (not Rewind) includes your data in the device backup it keeps in your own Google account, encrypted with your screen lock so that neither we nor Google can read it. The short version: your data stays with you, and we never receive it.</p>
     </section>
 
     <h2 id="what">What Rewind does</h2>
-    <p>Rewind reads notifications that the Android system delivers to its <code>NotificationListenerService</code> and stores them in a local database on your device. That local store is what powers the History screen, search, rules, snooze, the daily digest, the morning recap, analytics, the home-screen widget, the Quick Settings tile for the latest verification code, and the optional encrypted backup and restore flow. Every screen you see is computed on-device from data that never leaves your phone.</p>
+    <p>Rewind reads notifications that the Android system delivers to its <code>NotificationListenerService</code> and stores them in a local database on your device. That local store is what powers the History screen, search, rules, snooze, the daily digest, the morning recap, analytics, the home-screen widget, the Quick Settings tile for the latest verification code, the optional encrypted backup and restore flow, and the optional Google backup. Every screen you see is computed on-device from data stored on your phone.</p>
 
     <h2 id="data">Data Rewind processes</h2>
     <p>When the system hands a notification to the listener, Rewind reads and stores the following fields:</p>
@@ -331,15 +331,15 @@
       <li>A short key used internally to deduplicate rapid updates to the same notification</li>
     </ul>
     <p>Text, message-thread, and image capture are all on by default. You can turn them off globally in <strong>Settings &rsaquo; Capture title and body text</strong>, <strong>Settings &rsaquo; Capture full message threads</strong>, and <strong>Settings &rsaquo; Capture images</strong> respectively, or flip text capture for individual apps under <strong>Settings &rsaquo; Text capture exceptions</strong>. When a category is off, none of those bytes reach disk.</p>
-    <p>Rewind does <strong>not</strong> read your call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases. <strong>Contacts</strong> are an opt-in exception: Rewind asks for the <code>READ_CONTACTS</code> permission only when you tap "Pick from starred contacts" inside the rule editor. See <a href="#permissions">Permissions</a> below for details. Picked names are turned into a local regex and never leave your device.</p>
+    <p>Rewind does <strong>not</strong> read your call log, SMS, location, microphone, camera, photos, files, calendar, biometric data, or the contents of any other app's databases. <strong>Contacts</strong> are an opt-in exception: Rewind asks for the <code>READ_CONTACTS</code> permission only when you tap "Pick from starred contacts" inside the rule editor. See <a href="#permissions">Permissions</a> below for details. Picked names are turned into a local regex stored inside the rule and are never sent to us. Like the rest of your rules, that regex is included in encrypted backup files and, if you turn it on, in Google backup.</p>
 
     <h2 id="storage">Where your data lives</h2>
-    <p>All captured data is stored in a Room/SQLite database inside Rewind's private app storage on your device. Android sandboxes that directory: other apps cannot read it. The database is excluded from Google's auto-backup, is never synced to the cloud, and never leaves the device unless <em>you</em> explicitly export it through the system file picker (see <a href="#exports">Exports</a>).</p>
-    <p>Notification-attached images are written as separate JPEG files alongside the database, inside the same private storage. They are subject to a rolling 50 MB cap: when the cap is reached, the oldest images are pruned automatically. The image bytes themselves are not bundled inside encrypted backups (only the filename references travel along), so a cross-device restore falls back to the source app's icon for any image the new device doesn't already have on disk.</p>
+    <p>All captured data is stored in a Room/SQLite database inside Rewind's private app storage on your device. Android sandboxes that directory: other apps cannot read it. The database is left out of Android's device backup unless you turn on Google backup (see <a href="#google-backup">Google backup</a>), is never synced to any service, and otherwise leaves the device only when <em>you</em> export it or save an encrypted backup file through the system file picker (see <a href="#exports">Exports</a> and <a href="#backups">Encrypted backup files</a>).</p>
+    <p>Notification-attached images are written as separate JPEG files alongside the database, inside the same private storage. They are subject to a rolling 50 MB cap: when the cap is reached, the oldest images are pruned automatically. The image bytes themselves are not bundled inside encrypted backup files (only the filename references travel along) or in the copy in your Google account, so restoring from either falls back to the source app's icon for any image the new device doesn't already have on disk. A direct phone-to-phone transfer on Android 12 and later, with Google backup on, does carry them.</p>
 
     <h2 id="sharing">Who Rewind shares data with</h2>
-    <p><strong>Nobody.</strong> Rewind has no servers, no analytics back-end, no advertising partners, and no third-party SDK that transmits user data. No part of your notification history leaves your device through Rewind under any circumstance.</p>
-    <p>The single network interaction Rewind initiates is with <strong>Google Play Billing</strong>, and only when you tap Unlock Pro. Google receives that purchase transaction directly under Google's own terms. Rewind does not transmit any of your notification data to Google, and Google does not send Rewind any personal information beyond the entitlement status of the <code>rewind_pro_unlock</code> product on your Google account.</p>
+    <p><strong>Nobody.</strong> Rewind has no servers, no analytics back-end, no advertising partners, and no third-party SDK that transmits user data. Rewind never sends any part of your notification history to us or to anyone else. It leaves your device only in ways you start yourself: an export, an encrypted backup file, or, if you switch on Google backup, Android's device backup to your own Google account, which neither we nor Google can read, and Android's transfer to a new phone you set up from this one (see <a href="#google-backup">Google backup</a>).</p>
+    <p>The single network interaction Rewind initiates is with <strong>Google Play Billing</strong>, and only when you tap Unlock Pro. Google receives that purchase transaction directly under Google's own terms. Rewind does not transmit any of your notification data to Google, and Google does not send Rewind any personal information beyond the entitlement status of the <code>rewind_pro_unlock</code> product on your Google account. Google backup is not an exception: the upload is made by Android's own backup service, not by Rewind, and Rewind adds your data to it only when Android encrypts it with your screen lock, so Google cannot read it.</p>
 
     <h2 id="permissions">Permissions Rewind requests, and why</h2>
     <table class="perm-table">
@@ -369,7 +369,7 @@
         </tr>
         <tr>
           <td>READ_CONTACTS <span class="chip">opt-in</span></td>
-          <td>Requested only when you tap "Pick from starred contacts" inside the rule editor (for the family-contacts rule template). Rewind reads display names of contacts you have <em>starred</em> on your device to build a local regex condition. The names are not stored or transmitted beyond that regex. If you never use this feature the permission is never requested, and you can revoke it any time in Android Settings.</td>
+          <td>Requested only when you tap "Pick from starred contacts" inside the rule editor (for the family-contacts rule template). Rewind reads display names of contacts you have <em>starred</em> on your device to build a local regex condition. The names are not stored anywhere except inside that regex, which is kept with your rules and is never sent to us. If you never use this feature the permission is never requested, and you can revoke it any time in Android Settings.</td>
         </tr>
       </tbody>
     </table>
@@ -382,10 +382,21 @@
     <p>You can export your notification history to CSV, JSON, or PDF (JSON and PDF require Pro) through Android's Storage Access Framework. You pick the destination file and folder; Rewind writes the file there and does not retain a separate copy of the export. We do not have access to anything you do with the exported file afterward.</p>
     <p>Pro users can also save a single captured notification image to the device gallery by long-pressing it inside an expanded History row. The image is copied into the public <code>Pictures/Rewind/</code> collection via Android's MediaStore. Once it lands there it is a normal photo: Rewind has no further control over it, and any photo-sync app you have installed (Google Photos, Samsung Gallery sync, etc.) may upload it under its own privacy terms.</p>
 
-    <h2 id="backups">Encrypted backups <span class="chip">opt-in</span></h2>
-    <p>Pro users can create an encrypted backup of every captured notification, rule, and per-app retention override. The backup is written as a single file through Android's Storage Access Framework; you pick where it goes. Rewind does not upload the file anywhere, and there is no online backup service.</p>
+    <h2 id="backups">Encrypted backup files <span class="chip">opt-in</span></h2>
+    <p>Pro users can create an encrypted backup of every captured notification, rule, and per-app retention override. The backup is written as a single file through Android's Storage Access Framework; you pick where it goes. Rewind does not upload the file anywhere. This is separate from <a href="#google-backup">Google backup</a>, Android's own device backup, which is off unless you turn it on.</p>
     <p>The file is encrypted with <strong>AES-256-GCM</strong> using a key derived from your password via <strong>PBKDF2-HMAC-SHA256</strong> at 600,000 iterations. The password is never written to disk and never leaves the app. We cannot recover a forgotten password: if you lose it, the backup is unreadable, including by us.</p>
     <p>Where the file lives after you save it is entirely up to you. If you pick a folder that is synced by another app (for example Google Drive or Dropbox), the encrypted file will be uploaded by that app under its own privacy terms. Rewind itself never initiates that upload.</p>
+
+    <h2 id="google-backup">Google backup <span class="chip">opt-in</span></h2>
+    <p>Rewind can take part in Android's own device backup, but only if you turn it on: <strong>Settings &rsaquo; Back up to your Google account</strong>. It is off until you do. It is available to everyone, not only Pro users. The choice is per device: it does not travel to a new phone, so a restored phone starts with it off again. Rewind itself never uploads anything; Android does, as part of the device backup it already keeps for your other apps, held by your device's backup service (your own Google account on a Google-backed phone).</p>
+    <p>That backup is encrypted end to end with your screen lock, so that neither we nor Google can read it, and Rewind makes sure of it rather than assuming it: on every backup pass, Rewind adds your data only when Android reports that this backup will be encrypted that way, which requires a screen lock to be set. When it does not (for example, a phone with no screen lock), Rewind's part holds nothing but the empty placeholder described below, and Settings shows a note under the switch asking you to set a screen lock. On Android 9 to 11 Rewind also checks for the screen lock itself. On Android 8, where the platform has no such encryption, the switch is not shown at all.</p>
+    <p><strong>What is included:</strong> your captured notification history, with its titles, body text and message threads; starred, hidden and snoozed marks; your rules, including any names picked from starred contacts, which live inside the rule; per-app retention overrides; your settings, such as the capture switches, the apps you excluded, text capture exceptions, retention, the digest time and the sleep window; and whether you have unlocked Pro. Notifications carry what other people send you, so the backup does too. A verification code stays part of the notification text it arrived in, but the separate copy of the code that Rewind keeps for the Quick Settings tile is removed from the backup.</p>
+    <p>The Pro unlock is included so that a restored phone keeps your Pro retention from the start, instead of pruning your restored history down to the free 7 days before Google Play has answered. It cannot unlock anything by itself: Rewind checks with Google Play again whenever you open the app, and removes the unlock if your Google account does not own it.</p>
+    <p><strong>What is never included in the copy in your Google account, whatever the switch says:</strong> the images Rewind captured; the Capture health record of when Rewind last connected and captured, which describes only this phone; and the switch itself. The password for an encrypted backup file is never stored anywhere, so no backup can contain it. Files you export and images you save to your gallery live outside Rewind's storage and are not part of Rewind's backup. Leaving images out is deliberate: Android skips an app's backup entirely, and silently, once it grows past a size limit, and captured images alone are allowed to reach 50 MB, twice the 25 MB that Google allows each app.</p>
+    <p>For the same reason, if your history is too large for Google's 25 MB limit, the backup keeps your starred notifications and as much of your most recent history as fits, along with your rules and settings. If even your starred notifications do not fit, it keeps only your rules and settings. This shapes only the backup copy: the history on your phone is not touched, and after a backup pass that had to cut the history down, a note under the switch in Settings says what the backup kept. If Rewind cannot prepare the history for a pass at all (for example, when the phone is short on storage, or on Android 9 and 10 and some low-memory phones when the history is larger than 64 MB), that pass carries only your settings, without your history, rules or per-app retention, and the note in Settings says so.</p>
+    <p>The same switch also controls Android's device-to-device transfer, the step that copies your apps when you set up a new phone from this one by cable or Wi-Fi. That copy goes straight from one phone to the other. On Android 12 and later it has no size limit and additionally carries your captured images; on Android 9 to 11 it carries the same set as the cloud backup. With the switch off, Rewind's data is not carried there either, and an encrypted backup file you create yourself is the only way to move it.</p>
+    <p>When your data is restored onto a phone, from your Google account or by a transfer, Rewind switches Google backup off on that phone, and the first time you open Rewind there it re-arms your digest, your morning recap and any snoozed notifications still waiting. The copy reflects your history as it was at the last backup pass: entries you delete, and history that ages out of your retention window, stay in it until the next pass.</p>
+    <p>Rewind's part of every backup pass always includes one one-byte placeholder file, whether or not the switch is on. That is what lets a pass carrying none of your data be a valid, empty backup rather than an error, which would otherwise interrupt the backups of your other apps too. When you turn the switch off, the next backup pass replaces Rewind's stored data with that placeholder. Android decides when that runs, usually overnight while the phone is charging on Wi-Fi, but it can be later, and a phone that never meets those conditions never runs one. To remove the copy immediately, delete the stored device backup from your Google account settings; uninstalling Rewind does not remove it. We never see or receive your backups.</p>
 
     <h2 id="feedback">In-app feedback <span class="chip">opt-in</span></h2>
     <p>Rewind ships an in-app feedback form at <strong>Settings &rsaquo; Send feedback</strong>. It is a thin wrapper around your existing email client: when you tap Send, Rewind composes a subject line and a message body and hands them to whichever app handles the Android <code>mailto:</code> intent (Gmail, Outlook, Samsung Email, etc.). The app itself never transmits the email; your email client does, on your tap, in whichever account you have configured.</p>
@@ -398,9 +409,9 @@
     <p>The device block exists to help reproduce reported bugs. It contains no advertising ID, no IMEI, no account information, no notification content, and no location. You can leave it out entirely by toggling off <strong>Include device details</strong> in the form before sending. Nothing from your notification history is ever included.</p>
 
     <h2 id="otp">OTP detection and the Quick Settings tile <span class="chip">opt-in</span></h2>
-    <p>For Pro users, Rewind can detect verification codes (one-time passwords) inside notifications and surface the most recent code on a Quick Settings tile so it can be copied with a single tap. Detection runs entirely on-device: a regex looks for 4 to 8 digit codes in the notification text Rewind has already stored. No code or notification is sent anywhere.</p>
+    <p>For Pro users, Rewind can detect verification codes (one-time passwords) inside notifications and surface the most recent code on a Quick Settings tile so it can be copied with a single tap. Detection runs entirely on-device: a regex looks for 4 to 8 digit codes in the notification text Rewind has already stored. No code or notification is sent to us or to any server by Rewind. A code is part of the notification text it arrived in, so if you turn on Google backup, any codes still in your history travel with that text in your own encrypted device backup (see <a href="#google-backup">Google backup</a>).</p>
     <p>When you tap the Quick Settings tile, the latest detected code is written to the Android system clipboard. On some Android versions the clipboard is readable by any foreground app, so treat this the same as you would copying a code from a messaging app: only do it when you are about to paste it. The tile is added by you from the Quick Settings editor and can be removed there at any time.</p>
-    <p>After the freshness window expires (ten minutes), the separately-stored extracted code is automatically nulled out in the local database, even when the corresponding notification row is still in your history. The original notification text remains: the user-visible message is what powers the History list, and removing it would break unrelated features.</p>
+    <p>After the freshness window expires (ten minutes), the separately-stored extracted code is automatically nulled out in the local database, even when the corresponding notification row is still in your history. The original notification text remains: the user-visible message is what powers the History list, and removing it would break unrelated features. The separately-stored extracted code is never part of a Google backup or a transfer to a new phone: Rewind removes it from the copy before Android takes it.</p>
 
     <h2 id="retention">Data retention and deletion</h2>
     <p>Your retention window is controlled entirely by you:</p>
@@ -408,7 +419,8 @@
       <li>Free users keep up to 7 days of history.</li>
       <li>Pro users can choose any retention between 1 and 365 days, or "unlimited", and can set per-app overrides.</li>
       <li>You can delete individual entries from the History screen at any time, or clear an app's history from the analytics drill-in.</li>
-      <li>Uninstalling Rewind erases the entire local database. There is nothing to delete server-side, because there is no server. Any backup files you exported still exist wherever you saved them, so delete those separately if you want them gone.</li>
+      <li>Entries you delete, and history that ages out of your retention window, leave the copy in your Google account only at its next backup pass.</li>
+      <li>Uninstalling Rewind erases the entire local database from the phone. We have no server, so there is nothing for us to delete. If you had turned on Google backup, the device backup already in your Google account stays there until it expires or you delete it from your Google account settings; Rewind cannot reach it, and Android may restore it if you reinstall Rewind on a phone signed in to that account. Any backup files you exported still exist wherever you saved them, so delete those separately if you want them gone.</li>
     </ul>
 
     <h2 id="children">Children</h2>
@@ -416,7 +428,8 @@
 
     <h2 id="security">Security</h2>
     <p>Your data lives in Android's per-app private storage, which is sandboxed from other apps. Rewind relies on the operating system's existing protections: the device lock screen and file-based encryption. We do not implement an additional at-rest encryption layer for the live local database, because the threat model of a single-user device is already covered by those OS-level controls. If you share a device with someone else, treat Rewind history the same as anything else in your apps.</p>
-    <p>Backup files written through the Encrypted backups feature are a separate matter, because they may end up in less-private locations (a Downloads folder, a synced cloud directory). Those files are encrypted with AES-256-GCM keyed by a password you choose, derived with PBKDF2 at 600,000 iterations. See <a href="#backups">Encrypted backups</a> above.</p>
+    <p>Backup files written through the encrypted backup feature are a separate matter, because they may end up in less-private locations (a Downloads folder, a synced cloud directory). Those files are encrypted with AES-256-GCM keyed by a password you choose, derived with PBKDF2 at 600,000 iterations. See <a href="#backups">Encrypted backup files</a> above.</p>
+    <p>The copy that Google backup keeps in your Google account is encrypted by Android, not by Rewind: it is end-to-end encrypted with your screen lock where the platform supports it, and Rewind adds no password or encryption layer of its own. See <a href="#google-backup">Google backup</a> for the conditions.</p>
 
     <h2 id="choices">Your controls</h2>
     <ul>
@@ -427,12 +440,14 @@
       <li><strong>Stop capturing notification-attached images</strong>: Settings &rsaquo; Capture images.</li>
       <li><strong>Adjust retention or set per-app overrides</strong>: Settings &rsaquo; Retention.</li>
       <li><strong>Leave device info out of feedback emails</strong>: toggle off Include device details inside the in-app feedback form.</li>
-      <li><strong>Clear all history</strong>: revoke notification access in Android Settings, then uninstall the app.</li>
+      <li><strong>Turn off Google backup</strong>: Settings &rsaquo; Back up to your Google account.</li>
+      <li><strong>Remove the Google backup copy immediately</strong>: delete the stored device backup from your Google account settings.</li>
+      <li><strong>Clear all history</strong>: revoke notification access in Android Settings, then uninstall the app. If Google backup was on, also delete the stored device backup from your Google account settings, or Android may restore your history when Rewind is reinstalled.</li>
       <li><strong>Revoke notification access</strong>: Android Settings &rsaquo; Notifications &rsaquo; Special app access &rsaquo; Notification access.</li>
     </ul>
 
     <h2 id="changes">Changes to this policy</h2>
-    <p>If the way Rewind handles data ever changes materially, this page will be updated and the effective date at the top bumped. Because the app's privacy promise is structural (no servers, no SDKs), a substantive change would require a new app version, and we would surface a clear in-app notice before any change took effect.</p>
+    <p>If the way Rewind handles data ever changes materially, this page will be updated and the effective date at the top bumped. Because the app's privacy promise is structural (no servers, no SDKs), a substantive change would require a new app version, and we would surface a clear in-app notice before any change took effect. Google backup is one such change: it arrived in a new app version, is off until you turn it on, and its switch describes what it does before you do.</p>
 
     <h2 id="contact">Contact</h2>
     <div class="contact">
